@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% load paginator_tags %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+  
+    <div class="mb-3">
+        <label class="form-label">
+            <select class="form-select" aria-label="" name="Define_subdivision">
+                <option selected>ОСП</option>
+                {% for Define_subdivision in Define_subdivision_list %}
+                    <option value="{{ Define_subdivision }}">{{ Define_subdivision }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    
+        <label class="form-label">
+            <select class="form-select" aria-label="" name="Client_office">
+                <option selected>КО</option>
+                {% for Client_office in Client_office_list %}
+                    <option value="{{ Client_office }}">{{ Client_office }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    
+        <label class="form-label">
+            <select class="form-select" aria-label="" name="Controller">
+                <option selected>Сетевая организация</option>
+                {% for Controller in Controller_list %}
+                    <option value="{{ Controller }}">{{ Controller }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        
+        <label class="form-label">
+            <select class="form-select" aria-label="" name="Define_period">
+                <option selected>Расчетный период</option>
+                {% for Define_period in Define_period_list %}
+                    <option value="{{ Define_period }}">{{ Define_period }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label class="form-label">
+            <button type="submit" class="btn btn-outline-primary">Поиск</button>
+        </label>
+    </div>
+    
+</form>
+    
+{% if object_list %}
+    <div class="table-responsive-lg">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="align-top">
+              <th scope="col" >ОСП</th>
+              <th scope="col">КО</th>
+              <th scope="col">Сетевая организация</th>
+              <th scope="col">ЛС РУСК ФЛ</th>
+              <th scope="col">ЛС СУЭД</th>
+              <th scope="col">ФИО</th>
+              <th scope="col">Адрес</th>
+              <th scope="col">ПО АЭС, кВтч</th>
+              <th scope="col">ПО СО, кВтч</th>
+              <th scope="col">Разность, кВтч</th>
+              <th scope="col">Тариф</th>
+              <th scope="col">Расчетный период</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.Define_subdivision }}</td>
+                    <td>{{ object.Client_office }}</td>
+                    <td>{{ object.Controller }}</td>
+                    <td>{{ object.RUSK_account_number }}</td>
+                    <td>{{ object.SUED_account_number }}</td>
+                    <td>{{ object.RUSK_full_name }}</td>
+                    <td>{{ object.RUSK_address }}</td>
+                    <td>{{ object.RUSK_volume }}</td>
+                    <td>{{ object.SAP_volume }}</td>
+                    <td>{{ object.Difference }}</td>
+                    <td>{{ object.Rate }}</td>
+                    <td>{{ object.Define_period }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endif %}
+    
+{% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% get_proper_elided_page_range paginator page_obj.number 3 2 as page_range %} <!-- here -->
+            {% for page in page_range %}
+                {% if page_obj.number == page %}
+                    <li class="active page-item">
+                        <span class="page-link">{{ page }}</span>
+                    </li>
+                {% else %}
+                    {% if page == paginator.ELLIPSIS %}
+                        <li class="page-item">
+                            <span class="page-link">{{ paginator.ELLIPSIS }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}
+
+
+{% endblock %}

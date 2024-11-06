@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+    
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <br/>
+        <label class="form-label">
+            Расчетный период:
+        </label>
+        <label class="form-label">
+            <input type="month" name="period" value="{{ period }}">
+        </label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">
+            Загружаемые данные:
+        </label>
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if  rusk_report_volume_check == "1" %}
+                    <input type="checkbox" class="form-check-input"  name="report_rusk_volume_check" value="1"
+                           checked="checked">
+                {% else %}
+                    <input type="checkbox" class="form-check-input"  name="report_rusk_volume_check" value="1">
+                {% endif %}
+                Сверка ПО <span>(РУСК ФЛ)</span>
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+            {% if sued_report_7108 == "1" %}
+                    <input type="checkbox" class="form-check-input"  name="report_sued_71_08_check" value="1"
+                           checked="checked">
+            {% else %}
+                <input type="checkbox" class="form-check-input"  name="report_sued_71_08_check" value="1">
+            {% endif %}
+                71.08 Бухгалтерская карта по абонентам ПАО "Саратовэнерго" <span>(СУЭД)</span>
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if sued_report_16010 == "1" %}
+                    <input type="checkbox" class="form-check-input"  name="report_sued_160_10_check" value="1"
+                           checked="checked">
+                {% else %}
+                    <input type="checkbox" class="form-check-input"  name="report_sued_160_10_check" value="1">
+                {% endif %}
+                160.10 Отчет по анализу расчета в МКЖД и предоставлению сведений в УК/ТСЖ <span>(СУЭД)</span>
+            </label>
+        </div>
+    </div>
+
+    <p>
+        <label class="form-label">
+            <button type="submit" class="btn btn-primary">Загрузить данные</button>
+        </label>
+    </p>
+</form>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+.header {
+    /*background-color: #f28c00;*/
+    background-color: #003268;
+    padding: 5px;
+    color: #fff;
+}
+
+.header img {
+    max-width: 40px;
+    display: inline;
+    vertical-align: middle;
+}
+
+.header h1 {
+    display: inline;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.form {
+    padding-left: 10px;
+}
+
+nav {
+  /*background-color: #003268;*/
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  /*color: #003268;*/
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  /*background-color: #003268;*/
+}
+
+form {
+    padding: 5px;
+}
+
+span#developer {
+    font-size: 12px;
+    padding: 5px;
+}
